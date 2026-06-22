@@ -3,24 +3,33 @@ import './App.css';
 import sketch from './sketch';
 import p5 from 'p5';
 
-const TEXT = 'Happy Birthday Kingsman';
+
+const TEXT = 'Happy Birthday Marusia!';
 
 const App = () => {
-  const canvasRef = React.useRef(null)
+  const canvasRef = React.useRef(null);
+  const [showIntro, setShowIntro] = React.useState(true);
 
   React.useEffect(() => {
     const canvasDivElement = canvasRef.current;
 
-    // NOTE: If you change TEXT value to something else, you'll need to make changes in sketch.js as well to make it work
-    // See my comments in sketch.js
     new p5(sketch(canvasDivElement, TEXT), canvasDivElement);
-  })
+  }, []);
 
   return (
     <div className="main">
+      {showIntro && (
+        <div className="intro-overlay">
+<img src="/assets/photo.png" alt="Birthday" />
+          <button onClick={() => setShowIntro(false)}>
+            Мяу 🎁
+          </button>
+        </div>
+      )}
+
       <div ref={canvasRef} />
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 export default App;
